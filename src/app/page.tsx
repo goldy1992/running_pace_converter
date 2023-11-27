@@ -1,5 +1,7 @@
 'use client'
 import { useEffect, useState } from "react";
+import { JSX } from "react/jsx-runtime";
+import DarkModeButton from "./components/dark_mode_button";
 
 const conversionConst = 1.609344
 const ONE_KM = 1
@@ -120,6 +122,9 @@ export default function PageContent() : JSX.Element {
     return (
       <main> 
         <div id="home" />
+        <div className="absolute top-3 end-3">
+            <DarkModeButton/>
+        </div>
          <div className='grid grid-cols-1 sm:grid-cols-5 gap-x-6 gap-y-4 px-4 py-12 mb-12 text-gray-800 dark:text-gray-200'>   
             <div className="sm:col-span-3 sm:col-start-2 flex flex-col sm:gap-x-2 gap-y-3 flex-wrap border-2 border-gray-500 bg-sky-50 dark:bg-gray-900 px-6 py-10 rounded-xl">
 
