@@ -2,62 +2,9 @@
 import { useEffect, useState } from "react";
 import { JSX } from "react/jsx-runtime";
 import DarkModeButton from "./components/dark_mode_button";
-
-const conversionConst = 1.609344
-const ONE_KM = 1
-const ONE_MILE = 1.609344
-const TWO_KM = 5
-const FIVE_KM = 5
-const TEN_KM = 10
-const FIFTEEN_KM = 15
-const TEN_MILE = 16.09
-const HALF_MARATHON = 21.1
-const MARATHON = 42.2
-
-const SECONDS_IN_HOUR = 60 * 60
-const SECONDS_IN_MINUTE = 60
-
-interface RaceTime {
-    h: number
-    m: number,
-    s: number
-    dist: number
-}
-
-const defaultRaceTime : (dist: number) => RaceTime = (dist: number) => {
-    return {
-        "h": 0,
-        "m": 0,
-        "s": 0,
-        "dist": dist
-    }
-}
-
-function convertSpeed(
-    hours : number, 
-    minutes: number, 
-    seconds: number, 
-    isKm: boolean) {
-    let totalSecs = (hours * 60 * 60) + (minutes * 60) + seconds
-    let modifier = isKm ? (totalSecs * conversionConst) : (totalSecs / conversionConst)
-    let outputHours = Math.trunc(modifier / (60 * 60))
-    modifier -= (outputHours * 60 * 60)
-    let outputMins = (minutes > 0 ) ? Math.trunc(modifier / 60) : 0
-    let ouputSecs = Math.ceil(modifier) % 60
-    return [outputHours, outputMins, ouputSecs]
-}
-
-function finishTimeMinKm(
-        secondsPerKm: number,
-        distance: number) {
-    let totalSecs = Math.trunc(secondsPerKm * distance)
-    let hours = Math.trunc(totalSecs / (SECONDS_IN_HOUR))
-    totalSecs -= (hours * SECONDS_IN_HOUR)
-    let mins = Math.trunc(totalSecs / SECONDS_IN_MINUTE)
-    let seconds = totalSecs - (mins * SECONDS_IN_MINUTE)
-    return [hours, mins, seconds]
-}
-
+import { HALF_MARATHON, MARATHON, SECONDS_IN_HOUR, SECONDS_IN_MINUTE, conversionConst } from "./core/constants";
+import { RaceTime } from "./core/race_time";
+import { convertSpeed, finishTimeMinKm, generateRaceTimes } from "./core/calculations";
 
 
 export default function PageContent() : JSX.Element {
@@ -68,17 +15,12 @@ export default function PageContent() : JSX.Element {
     const [inputSeconds, setInputSeconds] = useState(0)
     const [isKm, setIsKm] = useState(true)
     // output
+
+    const [raceTimes, setRaceTimes] = useState<Array<RaceTime>>([])
+
     const [outputHours, setOutputHours] = useState(0)
     const [outputMinutes, setOutputMinutes] = useState(0)
     const [outputSeconds, setOutputSeconds] = useState(0)
-
-    const [km1Time, setKm1ime] = useState(defaultRaceTime(HALF_MARATHON))
-    const [km5Time, setKm5Time] = useState(defaultRaceTime(FIVE_KM))
-    const [km10Time, setKm10Time] = useState(defaultRaceTime(TEN_KM))
-    const [km15Time, setKm15Time] = useState(defaultRaceTime(FIFTEEN_KM))
-    const [mile10Time, setMile10Time] = useState(defaultRaceTime(TEN_MILE))
-    const [hMarathonTime, setHMarathonTime] = useState(defaultRaceTime(HALF_MARATHON))
-    const [marathonTime, setMarathonTime] = useState(defaultRaceTime(MARATHON))
 
     const update = () => {
         let totalSecPerKm, totalSecPerMile
@@ -93,31 +35,28 @@ export default function PageContent() : JSX.Element {
                             + inputSeconds
             totalSecPerKm = totalSecPerMile / conversionConst
         }
+        let generatedRaceTimes = generateRaceTimes(totalSecPerKm)
+        setRaceTimes(generatedRaceTimes)
+        
         let [h, m, s] = convertSpeed(inputHours, inputMinutes, inputSeconds, isKm)
         setOutputHours(h)
         setOutputMinutes(m)
         setOutputSeconds(s)
         
-        let [hMarathonH, hMarathonM, hMarathonS] = finishTimeMinKm(totalSecPerKm, HALF_MARATHON)
-        setHMarathonTime({
-            "h": hMarathonH,
-            "m": hMarathonM,
-            "s": hMarathonS,
-            "dist": HALF_MARATHON
-        })
-
-        let [marathonH, marathonM, marathonS] = finishTimeMinKm(totalSecPerKm, MARATHON)
-        setMarathonTime({
-            "h": marathonH,
-            "m": marathonM,
-            "s": marathonS,
-            "dist": MARATHON
-        })
     }
 
     useEffect(() => {
         update()
     }, [inputHours, inputMinutes, inputSeconds, isKm])
+
+    const raceTimesJsx = raceTimes.map(rt => (
+        <tr>
+            <td className="border-separate border-t border-slate-500"><span className="py-2 px-2">{rt.raceType.name}</span></td>
+            <td className="border-separate border-t border-s border-slate-500 text-center"><span className="py-2 px-2">{rt.h}</span></td>
+            <td className="border-separate border-t border-s border-slate-500 text-center"><span className="py-2 px-2">{rt.m}</span></td>
+            <td className="border-separate border-t border-s border-slate-500 text-center"><span className="py-2 px-2">{rt.s}</span></td>
+        </tr>
+    ))
 
     return (
       <main> 
@@ -212,19 +151,7 @@ export default function PageContent() : JSX.Element {
                     </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td className="border-separate border-t border-slate-500"><span className="py-2 px-2">Half Marathon</span></td>
-                    <td className="border-separate border-t border-s border-slate-500 text-center"><span className="py-2 px-2">{hMarathonTime.h}</span></td>
-                    <td className="border-separate border-t border-s border-slate-500 text-center"><span className="py-2 px-2">{hMarathonTime.m}</span></td>
-                    <td className="border-separate border-t border-s border-slate-500 text-center"><span className="py-2 px-2">{hMarathonTime.s}</span></td>
-                </tr>
-                <tr>
-                <td className="border-separate border-t border-slate-500"><span className="py-2 px-2">Marathon</span></td>
-                    <td className="border-separate border-t border-s border-slate-500 text-center"><span className="py-2 px-2">{marathonTime.h}</span></td>
-                    <td className="border-separate border-t border-s border-slate-500 text-center"><span className="py-2 px-2">{marathonTime.m}</span></td>
-                    <td className="border-separate border-t border-s border-slate-500 text-center"><span className="py-2 px-2">{marathonTime.s}</span></td>
-
-                </tr>
+               {raceTimesJsx}
                 </tbody>
             </table>
  
