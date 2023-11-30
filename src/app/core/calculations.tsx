@@ -28,7 +28,7 @@ export function finishTimeMinKm(
         "h": hours,
         "m": mins,
         "s": seconds,
-        "raceType": raceDistance,
+        "raceDistance": raceDistance,
 
     }
 }

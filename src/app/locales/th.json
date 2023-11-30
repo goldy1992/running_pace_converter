@@ -5,5 +5,23 @@
     "input": "ข้อมูลเข้า",
     "minutes": "นาที",
     "hours": "ชั่วโมง",
-    "seconds": "วินาที"
+    "seconds": "วินาที",
+    "minutes_abbr": "นาที",
+    "hours_abbr": "ชม.",
+    "seconds_abbr": "วินาที",
+    "race_distances": "ระยะวิ่ง",
+    "time": "เวลา",
+    "km_2": "2 กม.",
+    "km_5":"5 กม.", 
+    "km_10":"10 กม.", 
+    "km_15":"15 กม.",
+    "miles_10":"10 ไมล์", 
+    "half_marathon":"ฮาล์ฟมาราธอน",
+    "marathon":"มาราธอน",
+    "unit_min_mile": "min/mile",
+    "unit_min_km": "min/km",
+    "pace": "เพซ",
+    "using_units": "ต่อ",
+    "race_table_description": "เวลาที่วิ่งเสร็จครบระยะวิ่ง"
+
 }

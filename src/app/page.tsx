@@ -2,18 +2,47 @@
 import { useEffect, useState } from "react";
 import { JSX } from "react/jsx-runtime";
 import DarkModeButton from "./components/dark_mode_button";
-import { HALF_MARATHON, MARATHON, SECONDS_IN_HOUR, SECONDS_IN_MINUTE, conversionConst } from "./core/constants";
+import { HALF_MARATHON, IRaceDistance, MARATHON, RaceType, SECONDS_IN_HOUR, SECONDS_IN_MINUTE, conversionConst } from "./core/constants";
 import { RaceTime } from "./core/race_time";
 import { convertSpeed, finishTimeMinKm, generateRaceTimes } from "./core/calculations";
 import { CircularThaiFlag, CircularBritishFlag, TickIcon } from "./components/icons/icons";
 import LanguageButton from "./components/language_selected_button";
 import th from './locales/th.json'
 import en from './locales/en.json'
+import ILocale from "./locales/ilocale";
 
+function formatNumberString(num: number) : String {
+    if (num <= 9) {
+        return "0" + num
+    }
+
+    return num.toString()
+}
+
+function getRaceName(locale : ILocale, raceDistance: RaceType) : String {
+    switch(raceDistance) {
+        case RaceType.KM_2:
+            return locale.km_2
+        case RaceType.KM_5:
+            return locale.km_5
+        case RaceType.KM_10:
+            return locale.km_10
+        case RaceType.KM_15:
+            return locale.km_15
+        case RaceType.MILE_10:
+            return locale.miles_10
+        case RaceType.HALF_MARATHON:
+            return locale.half_marathon
+        case RaceType.MARATHON:
+            return locale.marathon
+        default:
+            return locale.km_2
+    }
+}
 
 export default function PageContent() : JSX.Element {
 
-    const [locale, setLocale] = useState(en)
+    const [locale, setLocale] = useState<ILocale>(en)
 
     // input
     const [inputHours, setInputHours] = useState(0)
@@ -55,9 +84,9 @@ export default function PageContent() : JSX.Element {
         update()
     }, [inputHours, inputMinutes, inputSeconds, isKm])
 
-    const raceTimesJsx = raceTimes.map(rt => (
+    const raceTimesJsx = raceTimes.map((rt: RaceTime) => (
         <tr>
-            <td className="border-separate border-t border-slate-500"><span className="py-2 px-2">{rt.raceType.name}</span></td>
+            <td className="border-separate border-t border-slate-500"><span className="py-2 px-2">{getRaceName(locale, rt.raceDistance.type)}</span></td>
             <td className="border-separate border-t border-s border-slate-500 text-center"><span className="py-2 px-2">{rt.h}</span></td>
             <td className="border-separate border-t border-s border-slate-500 text-center"><span className="py-2 px-2">{rt.m}</span></td>
             <td className="border-separate border-t border-s border-slate-500 text-center"><span className="py-2 px-2">{rt.s}</span></td>
@@ -150,26 +179,29 @@ export default function PageContent() : JSX.Element {
        
         <div className="my-5 w-full h-[1px] bg-gray-500" />
         <div className="flex-none flex-col space-y-1">
-            <p className="block text-l leading-6">Pace in <span className="font-bold">{isKm ? "min/mile" : "min/km"}</span></p>
-            <span className="block text-s leading-6 font-bold">{outputHours + "h " + outputMinutes + "m " + outputSeconds + "s"} </span>
+            <p className="block text-l leading-6">{locale.pace + (locale == en ? " ": "") + locale.using_units + " "} <span className="font-bold">{isKm ? locale.unit_min_mile : locale.unit_min_km}</span></p>
+            {/* <span className="block text-s leading-6 font-bold">{outputHours + " " + locale.hours_abbr + " " + outputMinutes + " " + locale.minutes_abbr + " " + outputSeconds + " " + locale.seconds_abbr} </span> */}
+            <span className="text-s leading-6 font-bold">{formatNumberString(outputHours) + ":" + formatNumberString(outputMinutes) + ":" + formatNumberString(outputSeconds)}</span>
+       <span className="text-sm leading-6">{ "  (" + locale.hours_abbr + " : " + locale.minutes_abbr + " : " + locale.seconds_abbr + ")"} </span> 
+
         </div>
 
 
 
             <table className="table-auto border-separate border border-slate-500 border-spacing-0 w-full rounded">
             <caption className="caption-top py-1 text-xs">
-                    Summary of race distance times running at this pace.
+                   {locale.race_table_description}
                 </caption>
                 <thead>
      
                     <tr className="">
-                        <th rowSpan={2}className="px-2 py-2">Race Distance</th>
-                        <th colSpan={3}className="border-s border-slate-500 px-2 py-2">Time</th>
+                        <th rowSpan={2}className="px-2 py-2">{locale.race_distances}</th>
+                        <th colSpan={3}className="border-s border-slate-500 px-2 py-2">{locale.time}</th>
                     </tr>
                     <tr>
-                        <th className="border-separate border-t border-s border-slate-500">h</th>
-                        <th className="border-separate border-t border-s border-slate-500">m</th>
-                        <th className="border-separate border-t border-s border-slate-500">s</th>
+                        <th className="border-separate border-t border-s border-slate-500">{locale.hours_abbr}</th>
+                        <th className="border-separate border-t border-s border-slate-500">{locale.minutes_abbr}</th>
+                        <th className="border-separate border-t border-s border-slate-500">{locale.seconds_abbr}</th>
                     </tr>
                 </thead>
                 <tbody>

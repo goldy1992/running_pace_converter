@@ -26,16 +26,16 @@ export enum RaceType {
 
 export interface IRaceDistance {
     type: RaceType,
-    name: string,
+   // name: string,
     dist: number
 }
 
 export const distances : Array<IRaceDistance> = [
-    { "type": RaceType.KM_2, "name":"2 km", "dist": TWO_KM},
-    { "type": RaceType.KM_5, "name":"5 km", "dist": FIVE_KM},
-    { "type": RaceType.KM_10, "name":"10 km", "dist": TEN_KM},
-    { "type": RaceType.KM_15, "name":"15 km", "dist": FIFTEEN_KM},
-    { "type": RaceType.MILE_10, "name":"10 miles", "dist": TEN_MILE},
-    { "type": RaceType.HALF_MARATHON, "name":"Half Marathon", "dist": HALF_MARATHON},
-    { "type": RaceType.MARATHON, "name":"Marathon", "dist": MARATHON},
+    { "type": RaceType.KM_2, "dist": TWO_KM},
+    { "type": RaceType.KM_5, "dist": FIVE_KM},
+    { "type": RaceType.KM_10, "dist": TEN_KM},
+    { "type": RaceType.KM_15, "dist": FIFTEEN_KM},
+    { "type": RaceType.MILE_10, "dist": TEN_MILE},
+    { "type": RaceType.HALF_MARATHON, "dist": HALF_MARATHON},
+    { "type": RaceType.MARATHON, "dist": MARATHON},
 ]

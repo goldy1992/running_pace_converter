@@ -4,7 +4,7 @@ export interface RaceTime {
     h: number
     m: number,
     s: number
-    raceType: IRaceDistance
+    raceDistance: IRaceDistance
 }
 
 export type RaceTimes = Array<RaceTime>
