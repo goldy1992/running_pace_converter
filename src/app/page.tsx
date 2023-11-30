@@ -85,7 +85,7 @@ export default function PageContent() : JSX.Element {
     }, [inputHours, inputMinutes, inputSeconds, isKm])
 
     const raceTimesJsx = raceTimes.map((rt: RaceTime) => (
-        <tr>
+        <tr key={rt.raceDistance.type}>
             <td className="border-separate border-t border-slate-500"><span className="py-2 px-2">{getRaceName(locale, rt.raceDistance.type)}</span></td>
             <td className="border-separate border-t border-s border-slate-500 text-center"><span className="py-2 px-2">{rt.h}</span></td>
             <td className="border-separate border-t border-s border-slate-500 text-center"><span className="py-2 px-2">{rt.m}</span></td>
