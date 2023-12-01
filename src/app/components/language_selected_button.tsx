@@ -2,9 +2,9 @@ export default function LanguageButton({name, selected, onClick, icon}:{ name: s
 icon : React.ReactNode}) {
 
     let className = selected ?  
-    "px-4 py-1 bg-sky-800 border rounded-lg ring-4" 
+    "px-4 py-1 bg-sky-600 hover:bg-sky-700 dark:hover:bg-sky-500 rounded-lg ring-2 ring-gray-600 dark:ring-gray-300 dark:bg-sky-600  " 
     :
-    "px-4 py-1 bg-sky-600 hover:bg-sky-800 border rounded-lg" 
+    "px-4 py-1 bg-sky-400 dark:bg-sky-800 hover:bg-sky-700 dark:hover:bg-sky-500 rounded-lg" 
     return (
         <button 
         className={className}
@@ -12,18 +12,9 @@ icon : React.ReactNode}) {
         <div className="flex items-center space-x-1"> 
             {/* {language == "en" && <TickIcon className="w-4 h-4 me-2"/> } */}
             {icon}
-            <span className="text-sm">{name}</span>
+            <span className="text-sm text-gray-800 dark:text-gray-200">{name}</span>
         </div>
     </button>
 
     )
 }
-
-/* <button type="button" class="
-focus:outline-none text-white bg-green-700 
-hover:bg-green-800 focus:ring-4 
-focus:ring-green-300 font-medium 
-rounded-lg text-sm px-5 py-2.5 
-me-2 mb-2 dark:bg-green-600 
-dark:hover:bg-green-700 
-dark:focus:ring-green-800">Green</button> */

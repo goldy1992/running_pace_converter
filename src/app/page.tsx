@@ -116,7 +116,7 @@ export default function PageContent() : JSX.Element {
             </div>
         </div>
          <div className='grid grid-cols-1 sm:grid-cols-5 gap-x-6 gap-y-4 px-4 py-[70px] mb-12 text-gray-800 dark:text-gray-200'>   
-            <div className="sm:col-span-3 sm:col-start-2 flex flex-col sm:gap-x-2 gap-y-3 flex-wrap border-2 border-gray-500 bg-sky-50 dark:bg-gray-900 px-6 py-10 rounded-xl">
+            <div className="sm:col-span-3 sm:col-start-2 flex flex-col sm:gap-x-2 gap-y-3 flex-wrap border-2 border-gray-600 dark:border-gray-300 bg-sky-300 dark:bg-sky-800 px-6 py-10 rounded-xl">
 
                 <span className="flex-none text-2xl font-bold leading-10">{locale.convert_running_paces}</span>
                 {/* Units */}
@@ -125,7 +125,7 @@ export default function PageContent() : JSX.Element {
                     <div className="sm:flex sm:gap-x-2 sm:flex-wrap">
                         <div className="sm:flex-none flex items-center gap-x-3">
                             <input type="radio" id="minPerKm" checked={isKm} onChange={() => setIsKm(true) }
-                            className="default:bg-neutral-200 dark:default:bg-neutral-800" />
+                            className="default:bg-stone-200 dark:default:bg-stone-800" />
                             <label htmlFor="minPerKm" className="pr-2 text-sm">min/km</label>
                         </div>
                         <div className="sm:flex-none flex items-center gap-x-3">
