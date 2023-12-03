@@ -11,6 +11,7 @@ import th from './locales/th.json'
 import en from './locales/en.json'
 import ILocale from "./locales/ilocale";
 import TextInput from "./components/text_input";
+import RadioButtonInput from "./components/radio_button_input";
 
 function formatNumberString(num: number) : String {
     if (num <= 9) {
@@ -117,22 +118,15 @@ export default function PageContent() : JSX.Element {
             </div>
         </div>
          <div className='grid grid-cols-1 sm:grid-cols-5 gap-x-6 gap-y-4 px-4 py-[70px] mb-12 text-gray-800 dark:text-gray-200'>   
-            <div className="sm:col-span-3 sm:col-start-2 flex flex-col sm:gap-x-2 gap-y-3 flex-wrap border-2 border-gray-600 dark:border-gray-300 bg-neutral-200 dark:bg-neutral-800 px-6 py-10 rounded-xl">
+            <div className="sm:col-span-3 sm:col-start-2 flex flex-col sm:gap-x-2 gap-y-3 flex-wrap border border-gray-600 dark:border-gray-300 bg-neutral-200 dark:bg-neutral-800 px-6 py-10 rounded-xl">
 
                 <span className="flex-none text-2xl font-bold leading-10">{locale.convert_running_paces}</span>
                 {/* Units */}
                 <div className="flex-col space-y-2 pt-2">
                     <span className="block text-m leading-6">{locale.units}</span>
                     <div className="sm:flex sm:gap-x-2 sm:flex-wrap">
-                        <div className="sm:flex-none flex items-center gap-x-3">
-                            <input type="radio" id="minPerKm" checked={isKm} onChange={() => setIsKm(true) }
-                            className="default:bg-stone-200 dark:default:bg-stone-800" />
-                            <label htmlFor="minPerKm" className="pr-2 text-sm">min/km</label>
-                        </div>
-                        <div className="sm:flex-none flex items-center gap-x-3">
-                            <input type="radio" id="minPerMile" checked={!isKm} onChange={() => setIsKm(false) }/>
-                            <label className="text-sm" htmlFor="minPerMile">min/mile</label>
-                        </div>
+                        <RadioButtonInput label="min/km" isChecked={isKm} onChange={() => setIsKm(true) }/>
+                        <RadioButtonInput label="min/mile" isChecked={!isKm} onChange={() => setIsKm(false) }/>
                     </div>
                 </div>
 
@@ -172,7 +166,7 @@ export default function PageContent() : JSX.Element {
        
 
        
-        <div className="my-5 w-full h-[1px] bg-gray-500" />
+        <div className="my-5 w-full h-[1px] bg-gray-600 dark:bg-gray-400" />
         <div className="flex-none flex-col space-y-1">
             <p className="block text-l leading-6">{locale.pace + (locale == en ? " ": "") + locale.using_units + " "} <span className="font-bold">{isKm ? locale.unit_min_mile : locale.unit_min_km}</span></p>
             {/* <span className="block text-s leading-6 font-bold">{outputHours + " " + locale.hours_abbr + " " + outputMinutes + " " + locale.minutes_abbr + " " + outputSeconds + " " + locale.seconds_abbr} </span> */}
