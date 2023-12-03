@@ -10,6 +10,7 @@ import LanguageButton from "./components/language_selected_button";
 import th from './locales/th.json'
 import en from './locales/en.json'
 import ILocale from "./locales/ilocale";
+import TextInput from "./components/text_input";
 
 function formatNumberString(num: number) : String {
     if (num <= 9) {
@@ -116,7 +117,7 @@ export default function PageContent() : JSX.Element {
             </div>
         </div>
          <div className='grid grid-cols-1 sm:grid-cols-5 gap-x-6 gap-y-4 px-4 py-[70px] mb-12 text-gray-800 dark:text-gray-200'>   
-            <div className="sm:col-span-3 sm:col-start-2 flex flex-col sm:gap-x-2 gap-y-3 flex-wrap border-2 border-gray-600 dark:border-gray-300 bg-sky-300 dark:bg-sky-800 px-6 py-10 rounded-xl">
+            <div className="sm:col-span-3 sm:col-start-2 flex flex-col sm:gap-x-2 gap-y-3 flex-wrap border-2 border-gray-600 dark:border-gray-300 bg-neutral-200 dark:bg-neutral-800 px-6 py-10 rounded-xl">
 
                 <span className="flex-none text-2xl font-bold leading-10">{locale.convert_running_paces}</span>
                 {/* Units */}
@@ -139,39 +140,33 @@ export default function PageContent() : JSX.Element {
                 <div className="flex-col space-y-2 py-2">
                     <span className="flex-none text-m leading-6">{locale.input}</span>
                     <div className="flex flex-col sm:flex-row gap-y-2 sm:gap-x-2 sm:flex-wrap">
-                        <div className="sm:flex-1 flex-col space-y-2">
-                            <label htmlFor="hours" className="block text-xs leading-2">{locale.hours}</label>
-                            <input type="text" inputMode="numeric" id="hours" placeholder="0"
-                            className="pl-2 py-2 border-0 appearance-none rounded-md sm:leading-6 ring-1 focus:ring-inset text-sm bg-sky-100 dark:bg-sky-900"
-                            onChange={(hrs : any) => {
-                                let number = Number(hrs.currentTarget.value)
-                                if (!isNaN(number)) {
-                                    setInputHours(number)
-                                }
-                            }}/>
-                        </div>        
-                        <div className="sm:flex-1 flex-col space-y-2">
-                            <label htmlFor="minutes" className="block text-xs leading-2">{locale.minutes}</label>
-                            <input type="text" id="minutes" placeholder="0" 
-                            className="pl-2 py-2 border-0 rounded-md sm:leading-6 ring-1 focus:ring-inset text-sm bg-sky-100 dark:bg-sky-900"
-                            onChange={(mins) => {
-                                let number = Number(mins.currentTarget.value)
-                                if (!isNaN(number)) {
-                                    setInputMinutes(number)
-                                }
-                            }}/>
-                        </div>
-                        <div className="sm:flex-1 flex-col space-y-2">
-                            <label htmlFor="seconds" className="block text-xs leading-2">{locale.seconds}</label>
-                            <input type="text" id="seconds" placeholder="0" 
-                            className="pl-2 py-2 border-0 rounded-md sm:leading-6 ring-1 focus:ring-inset text-sm bg-sky-100 dark:bg-sky-900"
-                            onChange={(secs : any) => {
-                                let number = Number(secs.currentTarget.value)
-                                if (!isNaN(number)) {
-                                    setInputSeconds(number)
-                                }
-                            }}/>
-                        </div>
+                    <TextInput label="hours"                            
+                        onChange={(hrs : any) => {
+                            let number = Number(hrs.currentTarget.value)
+                            if (!isNaN(number)) {
+                                setInputHours(number)
+                            }
+                        }}
+                    />
+                          
+                    <TextInput label="minutes"
+                        onChange={(mins) => {
+                            let number = Number(mins.currentTarget.value)
+                            if (!isNaN(number)) {
+                                setInputMinutes(number)
+                            }
+                        }}
+                    />
+                      
+                    <TextInput label="seconds"                           
+                        onChange={(secs : any) => {
+                            let number = Number(secs.currentTarget.value)
+                            if (!isNaN(number)) {
+                                setInputSeconds(number)
+                            }
+                        }}
+                    />
+
                     </div>
                 </div>
        

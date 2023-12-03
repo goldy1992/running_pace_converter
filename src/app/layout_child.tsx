@@ -12,7 +12,7 @@ export default function RootChild({children}: Props
     var darkMode = darkModeContext.enabled
     const isDarkMode = darkMode ? "dark" : ""
     const htmlClass = isDarkMode + " scroll-smooth"
-    const bodyClassName = 'bg-stone-200 dark:bg-stone-800 ' + inter.className
+    const bodyClassName = 'bg-neutral-100 dark:bg-neutral-900 ' + inter.className
   return (
 
         <html lang="th" className={htmlClass}>
