@@ -88,10 +88,10 @@ export default function PageContent() : JSX.Element {
 
     const raceTimesJsx = raceTimes.map((rt: RaceTime) => (
         <tr key={rt.raceDistance.type}>
-            <td className="border-separate border-t border-slate-500"><span className="py-2 px-2">{getRaceName(locale, rt.raceDistance.type)}</span></td>
-            <td className="border-separate border-t border-s border-slate-500 text-center"><span className="py-2 px-2">{rt.h}</span></td>
-            <td className="border-separate border-t border-s border-slate-500 text-center"><span className="py-2 px-2">{rt.m}</span></td>
-            <td className="border-separate border-t border-s border-slate-500 text-center"><span className="py-2 px-2">{rt.s}</span></td>
+            <td className="border-separate border-t border-neutral-500"><span className="py-2 px-2">{getRaceName(locale, rt.raceDistance.type)}</span></td>
+            <td className="border-separate border-t border-s border-neutral-500 text-center"><span className="py-2 px-2">{rt.h}</span></td>
+            <td className="border-separate border-t border-s border-neutral-500 text-center"><span className="py-2 px-2">{rt.m}</span></td>
+            <td className="border-separate border-t border-s border-neutral-500 text-center"><span className="py-2 px-2">{rt.s}</span></td>
         </tr>
     ))
 
@@ -166,7 +166,7 @@ export default function PageContent() : JSX.Element {
        
 
        
-        <div className="my-5 w-full h-[1px] bg-gray-600 dark:bg-gray-400" />
+        <div className="my-5 w-full h-[1px] bg-neutral-600 dark:bg-neutral-400" />
         <div className="flex-none flex-col space-y-1">
             <p className="block text-l leading-6">{locale.pace + (locale == en ? " ": "") + locale.using_units + " "} <span className="font-bold">{isKm ? locale.unit_min_mile : locale.unit_min_km}</span></p>
             {/* <span className="block text-s leading-6 font-bold">{outputHours + " " + locale.hours_abbr + " " + outputMinutes + " " + locale.minutes_abbr + " " + outputSeconds + " " + locale.seconds_abbr} </span> */}
@@ -177,20 +177,20 @@ export default function PageContent() : JSX.Element {
 
 
 
-            <table className="table-auto border-separate border border-slate-500 border-spacing-0 w-full rounded">
-            <caption className="caption-top py-1 text-xs">
+            <table className="table-auto border-separate border border-neutral-500 border-spacing-0 w-full rounded">
+            <caption className="caption-top py-2 text-xs">
                    {locale.race_table_description}
                 </caption>
                 <thead>
      
                     <tr className="">
                         <th rowSpan={2}className="px-2 py-2">{locale.race_distances}</th>
-                        <th colSpan={3}className="border-s border-slate-500 px-2 py-2">{locale.time}</th>
+                        <th colSpan={3}className="border-s border-neutral-500 px-2 py-2">{locale.time}</th>
                     </tr>
                     <tr>
-                        <th className="border-separate border-t border-s border-slate-500">{locale.hours_abbr}</th>
-                        <th className="border-separate border-t border-s border-slate-500">{locale.minutes_abbr}</th>
-                        <th className="border-separate border-t border-s border-slate-500">{locale.seconds_abbr}</th>
+                        <th className="border-separate border-t border-s border-neutral-500">{locale.hours_abbr}</th>
+                        <th className="border-separate border-t border-s border-neutral-500">{locale.minutes_abbr}</th>
+                        <th className="border-separate border-t border-s border-neutral-500">{locale.seconds_abbr}</th>
                     </tr>
                 </thead>
                 <tbody>
