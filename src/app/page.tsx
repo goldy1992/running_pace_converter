@@ -12,6 +12,7 @@ import en from './locales/en.json'
 import ILocale from "./locales/ilocale";
 import TextInput from "./components/text_input";
 import RadioButtonInput from "./components/radio_button_input";
+import LanguageIconButton from "./components/language_icon_button";
 
 function formatNumberString(num: number) : String {
     if (num <= 9) {
@@ -102,18 +103,12 @@ export default function PageContent() : JSX.Element {
             <DarkModeButton/>
             <div className="flex no-wrap items-center space-x-2">
                 <div className="flex no-wrap items-center space-x-2">
-                    <LanguageButton 
-                        name="English" 
+                    <LanguageIconButton src="./gb_circle.svg" 
                         selected = {locale == en}
-                        onClick={()=> setLocale(en)}
-                        icon = {( <CircularBritishFlag className="w-[24px] h-[24px]" />)}
-                    />
-                    <LanguageButton 
-                        name="ไทย" 
+                        onSelected={()=> setLocale(en)} />
+                    <LanguageIconButton src="./th_circle.svg" 
                         selected = {locale == th}
-                        onClick={()=> setLocale(th)}
-                        icon = {( <CircularThaiFlag className="w-[24px] h-[24px]" />)}
-                    />  
+                        onSelected={()=> setLocale(th)} />
                 </div>
             </div>
         </div>
